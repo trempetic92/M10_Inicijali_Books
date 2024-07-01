@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Books.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>Books</h1>
+
+<p>
+    <a asp-area="Admin" asp-controller="Book" asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().DateOfPublished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Genre)
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Publisher
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfPublished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @if (item.Author != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Author.Name)
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </td>
+                <td>
+                    @if (item.Publisher != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Publisher.Title)
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+                </td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Book" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary">Edit</a> |
+                    <a asp-area="Admin" asp-controller="Book" asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
+                    <a asp-area="Admin" asp-controller="Book" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
